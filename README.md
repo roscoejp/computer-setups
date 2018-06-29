@@ -23,3 +23,4 @@ Terminal setup:
   - Python
     - Pip
   - Docker
+  - iPython
