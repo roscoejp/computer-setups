@@ -22,5 +22,10 @@ Terminal setup:
     - Flake8 python linter
   - Python
     - Pip
+      - parameterized
+      - pyyaml
+      - jinja2
+      - Flask
+      - urllib3
   - Docker
   - iPython
