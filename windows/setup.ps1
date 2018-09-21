@@ -348,6 +348,9 @@ New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 Write-Output "Hide Search"
 New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name SearchboxTaskbarMode -PropertyType DWORD -Value 0
 
+Write-Output "Hide People"
+Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" "PeopleBand" 0
+
 Write-Output "Enable accent colors"
 # http://www.intowindows.com/how-to-change-title-bar-color-in-windows-10/ 
 Copy-Item -Path $env:windir\Resources\Themes\aero -Recurse -Destination $env:windir\Resources\Themes\windows -Force -ErrorAction SilentlyContinue
