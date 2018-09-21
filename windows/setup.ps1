@@ -332,6 +332,7 @@ Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advan
 
 Write-Output "Setting taskbar icon sizes and items"
 Set-ItemProperty "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" "TaskbarSmallIcons" 1
+Set-ItemProperty "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" "EnableAutoTray" 0
 
 
 # Privacy ------------------------
