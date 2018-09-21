@@ -1,4 +1,5 @@
-# A lot of this is based on https://github.com/W4RH4WK/Debloat-Windows-10
+# A lot of this is based on https://github.com/W4RH4WK/Debloat-Windows-10 
+# and https://jesperarnecke.wordpress.com/2015/11/11/windows-10-privacy-settings-automated/
 # @TODO: Break this out into individual scripts
 $classic_shell_settings = @"
 <?xml version="1.0"?>
@@ -337,10 +338,32 @@ Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advan
 Write-Output "Setting default explorer view to This PC"
 Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" "LaunchTo" 1
 
-Write-Output "Setting taskbar icon sizes and items"
+Write-Output "Setting taskbar icon sizes"
 Set-ItemProperty "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" "TaskbarSmallIcons" 1
-Set-ItemProperty "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" "EnableAutoTray" 0
 
+Write-Output "Show all icons in taskbar"
+New-ItemProperty -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Explorer -Name EnableAutoTray -PropertyType DWORD -Value 0
+New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name NavPaneShowAllFolders -PropertyType DWORD -Value 1
+
+Write-Output "Hide Search"
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name SearchboxTaskbarMode -PropertyType DWORD -Value 0
+
+Write-Output "Enable accent colors"
+# http://www.intowindows.com/how-to-change-title-bar-color-in-windows-10/ 
+Copy-Item -Path $env:windir\Resources\Themes\aero -Recurse -Destination $env:windir\Resources\Themes\windows -Force -ErrorAction SilentlyContinue
+Get-ChildItem -Path $env:windir\Resources\Themes\windows -Filter "aero.msstyles*" -Recurse | Rename-Item -NewName {$_.name -replace 'aero','windows' }
+(Get-Content $env:windir\Resources\Themes\aero.theme).Replace('Path=%ResourceDir%\Themes\Aero\Aero.msstyles', 'Path=%ResourceDir%\Themes\windows\windows.msstyles') | Set-Content $env:TEMP\windows.theme
+Start-Process $env:TEMP\windows.theme -Wait
+(New-Object -comObject Shell.Application).Windows() | where-object {$_.LocationName -eq "Personalization"} | foreach-object {$_.quit()}
+Remove-Item $env:TEMP\windows.theme
+}
+
+Write-Output "Disable Quick Access: Recent Files"
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer -Name ShowRecent -Type DWORD -Value 0
+ 
+Write-Output "Disable Quick Access: Frequent Folders"
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer -Name ShowFrequent -Type DWORD -Value 0
+ 
 
 # Privacy ------------------------
 Write-Output "Do not scan contact informations"
