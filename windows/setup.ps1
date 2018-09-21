@@ -143,6 +143,13 @@ $apps = @(
 
 
 # Helper functions ------------------------
+function force-mkdir($path) {
+    if (!(Test-Path $path)) {
+        #Write-Host "-- Creating full path to: " $path -ForegroundColor White -BackgroundColor DarkGreen
+        New-Item -ItemType Directory -Force -Path $path
+    }
+}
+
 function Takeown-Registry($key) {
     # TODO does not work for all root keys yet
     switch ($key.split('\')[0]) {
