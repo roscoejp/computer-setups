@@ -272,6 +272,13 @@ foreach ($package in $choco_packs) {
 }
 
 
+# Set Chrome as default browser ------------------------
+Add-Type -AssemblyName 'System.Windows.Forms'
+Start-Process $env:windir\system32\control.exe -ArgumentList '/name Microsoft.DefaultPrograms /page pageDefaultProgram\pageAdvancedSettings?pszAppName=google%20chrome'
+Sleep 2
+[System.Windows.Forms.SendKeys]::SendWait("{TAB} {TAB}{TAB} ")
+
+
 # Remove Features ------------------------
 foreach ($bloat in $bloatware) {
     Write-Output "Removing packages containing $bloat"
