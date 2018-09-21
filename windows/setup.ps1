@@ -372,7 +372,7 @@ Write-Output "Disable Quick Access: Frequent Folders"
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWORD -Value 0
 
 Write-Output "Remove Quick Access Icon"
-Set-ItemProperty "HKCR:\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}" "Attributes" -PropertyType DWord -Value a0600000
+Set-ItemProperty "HKCR:\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}" "Attributes" a0600000
  
 
 # Privacy ------------------------
