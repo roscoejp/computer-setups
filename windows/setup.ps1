@@ -276,10 +276,12 @@ Set-ItemProperty -Path $path -Name "AllowCortana" -Value 0
 
 # Install Chocolatey and packages ------------------------
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-foreach ($package in $choco_packs) {
-    Write-Output "Installing Chocolatey package $package"
-    choco install "$package" -y
-}
+#foreach ($package in $choco_packs) {
+#    Write-Output "Installing Chocolatey package $package"
+#    choco install "$package" -y
+#}
+Write-Output "Installing all Chocolatey packages"
+choco install $choco_packs -join ' ' -y
 
 
 # Set Chrome as default browser ------------------------
