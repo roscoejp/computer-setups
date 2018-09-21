@@ -1,5 +1,36 @@
 # A lot of this is based on https://github.com/W4RH4WK/Debloat-Windows-10
 # @TODO: Break this out into individual scripts
+$classic_shell_settings = @"
+<?xml version="1.0"?>
+<Settings component="StartMenu" version="4.3.1">
+	<AllProgramsMetro value="0"/>
+	<OpenPrograms value="1"/>
+	<RecentPrograms value="None"/>
+	<ShutdownCommand value="CommandSleep"/>
+	<HighlightNew value="0"/>
+	<SearchTrack value="0"/>
+	<InvertMetroIcons value="0"/>
+	<MainMenuAnimation value="Fade"/>
+	<SubMenuAnimation value="Fade"/>
+	<SkinW7 value="Metro"/>
+	<SkinVariationW7 value=""/>
+	<SkinOptionsW7>
+		<Line>USER_IMAGE=1</Line>
+		<Line>SMALL_ICONS=1</Line>
+		<Line>LARGE_FONT=0</Line>
+		<Line>DISABLE_MASK=0</Line>
+		<Line>OPAQUE=1</Line>
+		<Line>GLASS_SHADOW=0</Line>
+		<Line>BLACK_TEXT=0</Line>
+		<Line>BLACK_FRAMES=0</Line>
+		<Line>WHITE_SUBMENUS=1</Line>
+	</SkinOptionsW7>
+	<CustomTaskbar value="0"/>
+	<TaskbarLook value="Transparent"/>
+	<SkipMetro value="1"/>
+</Settings>
+"@
+
 $bloatware = @(
     #"Anytime"
     "BioEnrollment"
@@ -113,6 +144,14 @@ $apps = @(
 # Elevate so I can run everything ------------------------
 Write-Output "Elevating priviledges for this process"
 do {} until (Elevate-Privileges SeTakeOwnershipPrivilege)
+
+
+# Install Chocolatey and packages ------------------------
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+foreach ($package in $choco_packs) {
+    Write-Output "Installing Chocolatey package $package"
+    choco install "$package" -y
+}
 
 
 # Remove Features ------------------------
@@ -268,12 +307,9 @@ foreach ($item in (Get-ChildItem "$env:WinDir\WinSxS\*onedrive*")) {
 }
 
 
-# Install Chocolatey and packages ------------------------
-Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-foreach ($package in $choco_packs) {
-    Write-Output "Installing Chocolatey package $package"
-    choco install "$package" -y
-}
+# Setup Classic Shell
+$classic_shell_settings | Out-File -FilePath C:\Program Files\Classic Shell\ps1-generated-import.xml
+C:\Program Files\Classic Shell\ClassicStartMenu.exe -xml ps1-generated-import.xml
 
 
 # As a last step, disable UAC ------------------------
