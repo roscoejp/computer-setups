@@ -256,6 +256,14 @@ Write-Output "Elevating priviledges for this process"
 do {} until (Elevate-Privileges SeTakeOwnershipPrivilege)
 
 
+# Kill Cortana ------------------------
+$path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search"     
+if(!(Test-Path -Path $path)) {  
+	New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows" -Name "Windows Search" 
+}  
+Set-ItemProperty -Path $path -Name "AllowCortana" -Value 0
+
+
 # Install Chocolatey and packages ------------------------
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 foreach ($package in $choco_packs) {
@@ -314,6 +322,9 @@ Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advan
 
 Write-Output "Setting default explorer view to This PC"
 Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" "LaunchTo" 1
+
+Write-Output "Setting taskbar icon sizes and items"
+Set-ItemProperty "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" "TaskbarSmallIcons" 1
 
 
 # Privacy ------------------------
