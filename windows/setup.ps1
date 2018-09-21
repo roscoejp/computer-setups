@@ -476,9 +476,13 @@ foreach ($item in (Get-ChildItem "$env:WinDir\WinSxS\*onedrive*")) {
 }
 
 
-# Setup Classic Shell
+# Setup Classic Shell ------------------------
 $classic_shell_settings | Out-File -FilePath C:\Program Files\Classic Shell\ps1-generated-import.xml
 C:\Program Files\Classic Shell\ClassicStartMenu.exe -xml ps1-generated-import.xml
+
+
+# MHW Save Directory to Dropbox ------------------------
+cmd /c mklink /D "D:\Steam\userdata\41496749\58210" "C:\Users\Houou\Dropbox\Software\My Games\Monster Hunter World"
 
 
 # As a last step, disable UAC ------------------------
