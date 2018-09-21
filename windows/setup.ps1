@@ -1,4 +1,4 @@
-# A lot of this is based on stuff from Based on https://github.com/W4RH4WK/Debloat-Windows-10/blob/master/scripts/
+# A lot of this is based on https://github.com/W4RH4WK/Debloat-Windows-10
 # @TODO: Break this out into individual scripts
 $bloatware = @(
     #"Anytime"
