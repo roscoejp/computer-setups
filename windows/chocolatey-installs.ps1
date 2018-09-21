@@ -1,3 +1,4 @@
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 choco install -y 7zip
 choco install -y chocolateygui
 choco install -y classic-shell
@@ -14,7 +15,3 @@ choco install -y python3
 choco install -y qbittorrent
 choco install -y vlc
 choco install -y vscode
-choco install -y DotNet4.5.2
-choco install -y dotnet4.7.1
-choco install -y KB2919355
-choco install -y KB2919442
