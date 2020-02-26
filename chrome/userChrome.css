@@ -1,0 +1,11 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+/* Makes the "grab space" on the left of the tabbar smaller */
+.titlebar-spacer[type="pre-tabs"] {
+  width: 15px !important;
+}
+
+/* Removes the "grab space" at the right side of the tabbar */
+.titlebar-spacer[type="post-tabs"] {
+  display: none !important;
+}
