@@ -7,5 +7,7 @@
 
 /* Removes the "grab space" at the right side of the tabbar */
 .titlebar-spacer[type="post-tabs"] {
-  display: none !important;
+  width: 15px !important;
+  border-left: 1px solid dimgray !important;
+  border-right: 1px solid dimgray !important;
 }
