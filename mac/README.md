@@ -72,3 +72,15 @@ in /etc/logrotate.d/bashhistory...
   endscript
 }
 ```
+
+## Hiding Users
+From: https://support.apple.com/en-us/HT203998
+```bash
+sudo dscl . create /Users/hiddenuser IsHidden 1
+```
+Hide Home Dir/Share Point
+```bash
+sudo mv /Users/hiddenuser /var/hiddenuser
+sudo dscl . create /Users/hiddenuser NFSHomeDirectory /var/hiddenuser
+sudo dscl . delete "/SharePoints/Hidden User's Public Folder"
+```
