@@ -1,31 +1,67 @@
 # Mac Setup
 
-Start pulling out the good stuff from here: http://sourabhbajaj.com/mac-setup/iTerm/zsh.html
+# UI stuff
+MacOS setup: https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
-Initial UI setup:
+# References
+Start pulling out the good stuff from here: http://sourabhbajaj.com/mac-setup/
+Getting started  with dotfiles: https://medium.com/@webprolific/getting-started-with-dotfiles-43c3602fd789
+Dotfiles reference repo: https://github.com/webpro/awesome-dotfiles
+Mathias dotfiles: https://github.com/mathiasbynens/dotfiles
+Holmons dotfiles: https://github.com/holman/dotfiles
+Useing Stow for manging symlinks: http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html
+
+# Logrotate bash history but keep last N lines
+TLDR: https://kowalcj0.github.io/posts/2019/logrotate-bash-history/
+Logrotate: https://formulae.brew.sh/formula/logrotate
+in /etc/logrotate.d/bashhistory...
+```bash
+/home/$USERNAME/.bash_history {
+  weekly
+  missingok
+  rotate 5
+  size 5000k
+  nomail
+  notifempty
+  create 600 $USERNAME $USERNAME
+  postrotate
+    tail -n100 $1 > /home/$USERNAME/.bash_history;
+    mkdir -p /home/$USERNAME/bash_history
+    mv $1 /home/$USERNAME/bash_history/$1
+  endscript
+}
+```
+
+# Apps
   - Chrome
   - Chrome Remote Desktop
-  - Sensible Side Buttons (for mouse buttons)
-  - ShiftIt or Spectacle
-  - Timeout (break timer?)
+  - Sensible Side Buttons: https://formulae.brew.sh/cask/sensiblesidebuttons
+  - Rectangle: https://github.com/rxhanson/Rectangle
 
-Terminal setup:
-  - Setup .shellrc directory
   - Homebrew
     - wget
     - glances or htop
     - nmap
     - openssl
-  - iterm
-  - zsh
+  - iterm2
+  ~~- zsh~~
   - VSCode
     - Flake8 python linter
+    - Docker
+    - Live Server
+    - Live Share
+    - Material Icon theme
+    - Powershell
+    - Python
+    - Ruby
+    - SSH FS
+    - Terraform
+    - VSCode Ruby
+    - vscode-icons
+    - YAML
   - Python
     - Pip
-      - parameterized
-      - pyyaml
-      - jinja2
-      - Flask
-      - urllib3
+    - Pyenv
+    - Virtual env
   - Docker
   - iPython
