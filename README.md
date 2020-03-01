@@ -40,9 +40,6 @@ I was directed to a great [macOS Setup Guide](http://sourabhbajaj.com/mac-setup/
 
 ## Logrotate bash history but keep last N lines
 TLDR: https://kowalcj0.github.io/posts/2019/logrotate-bash-history/
-
-Logrotate: https://formulae.brew.sh/formula/logrotate
-
 in /etc/logrotate.d/bashhistory...
 ```bash
 /home/$USERNAME/.bash_history {
