@@ -36,6 +36,7 @@ I was directed to a great [macOS Setup Guide](http://sourabhbajaj.com/mac-setup/
 - Things that can be installed via homebrew and don't have configs = brewfile
 - Things that can't be homebrewed = topic/install.sh
 - All installs should check if apps are already installed (should be idempotent)
+- Put stuff into the brewfile first to see if it configs using dotfiles. If it does move it into a topic.
 
 ## Logrotate bash history but keep last N lines
 TLDR: https://kowalcj0.github.io/posts/2019/logrotate-bash-history/
@@ -134,6 +135,8 @@ sudo dscl . delete "/SharePoints/Hidden User's Public Folder"
 - [Rectangle](https://formulae.brew.sh/cask/rectangle)
 - NMap
 - [Logrotate](https://formulae.brew.sh/formula/logrotate)
+- Slack
+- Microsoft Teams
 
 ### Are these preinstalled on modern MacOS?
   - wget
