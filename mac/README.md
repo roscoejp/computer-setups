@@ -5,15 +5,22 @@ MacOS setup: https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
 # References
 Start pulling out the good stuff from here: http://sourabhbajaj.com/mac-setup/
+
 Getting started  with dotfiles: https://medium.com/@webprolific/getting-started-with-dotfiles-43c3602fd789
+
 Dotfiles reference repo: https://github.com/webpro/awesome-dotfiles
+
 Mathias dotfiles: https://github.com/mathiasbynens/dotfiles
+
 Holmons dotfiles: https://github.com/holman/dotfiles
+
 Useing Stow for manging symlinks: http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html
 
 # Logrotate bash history but keep last N lines
 TLDR: https://kowalcj0.github.io/posts/2019/logrotate-bash-history/
+
 Logrotate: https://formulae.brew.sh/formula/logrotate
+
 in /etc/logrotate.d/bashhistory...
 ```bash
 /home/$USERNAME/.bash_history {
