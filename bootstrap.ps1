@@ -176,7 +176,8 @@ function Takeown-Folder($path) {
     foreach ($item in Get-ChildItem $path) {
         if (Test-Path $item -PathType Container) {
             Takeown-Folder $item.FullName
-        } else {
+        }
+        else {
             Takeown-File $item.FullName
         }
     }
@@ -232,13 +233,13 @@ function Elevate-Privileges {
 
 # Elevate so I can run everything ------------------------
 Write-Output "Elevating priviledges for this process"
-do {} until (Elevate-Privileges SeTakeOwnershipPrivilege)
+do { } until (Elevate-Privileges SeTakeOwnershipPrivilege)
 
 
 # Kill Cortana ------------------------
 $path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search"     
-if(!(Test-Path -Path $path)) {  
-	New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows" -Name "Windows Search" 
+if (!(Test-Path -Path $path)) {  
+    New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows" -Name "Windows Search" 
 }  
 Set-ItemProperty -Path $path -Name "AllowCortana" -Value 0
 
@@ -284,8 +285,8 @@ foreach ($app in $apps) {
     Write-Output "Trying to remove $app"
     Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage -AllUsers
     Get-AppXProvisionedPackage -Online |
-        Where-Object DisplayName -EQ $app |
-        Remove-AppxProvisionedPackage -Online
+    Where-Object DisplayName -EQ $app |
+    Remove-AppxProvisionedPackage -Online
 }
 # Prevents "Suggested Applications" returning
 force-mkdir "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Cloud Content"
@@ -327,12 +328,11 @@ Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advan
 Write-Output "Enable accent colors"
 # http://www.intowindows.com/how-to-change-title-bar-color-in-windows-10/ 
 Copy-Item -Path $env:windir\Resources\Themes\aero -Recurse -Destination $env:windir\Resources\Themes\windows -Force -ErrorAction SilentlyContinue
-Get-ChildItem -Path $env:windir\Resources\Themes\windows -Filter "aero.msstyles*" -Recurse | Rename-Item -NewName {$_.name -replace 'aero','windows' }
+Get-ChildItem -Path $env:windir\Resources\Themes\windows -Filter "aero.msstyles*" -Recurse | Rename-Item -NewName { $_.name -replace 'aero', 'windows' }
 (Get-Content $env:windir\Resources\Themes\aero.theme).Replace('Path=%ResourceDir%\Themes\Aero\Aero.msstyles', 'Path=%ResourceDir%\Themes\windows\windows.msstyles') | Set-Content $env:TEMP\windows.theme
 Start-Process $env:TEMP\windows.theme -Wait
-(New-Object -comObject Shell.Application).Windows() | where-object {$_.LocationName -eq "Personalization"} | foreach-object {$_.quit()}
+(New-Object -comObject Shell.Application).Windows() | where-object { $_.LocationName -eq "Personalization" } | foreach-object { $_.quit() }
 Remove-Item $env:TEMP\windows.theme
-}
 
 Write-Output "Disable Quick Access: Recent Files"
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWORD -Value 0
