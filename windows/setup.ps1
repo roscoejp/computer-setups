@@ -1,36 +1,6 @@
 # A lot of this is based on https://github.com/W4RH4WK/Debloat-Windows-10 
 # and https://jesperarnecke.wordpress.com/2015/11/11/windows-10-privacy-settings-automated/
 # @TODO: Break this out into individual scripts
-$classic_shell_settings = @"
-<?xml version="1.0"?>
-<Settings component="StartMenu" version="4.3.1">
-	<AllProgramsMetro value="0"/>
-	<OpenPrograms value="1"/>
-	<RecentPrograms value="None"/>
-	<ShutdownCommand value="CommandSleep"/>
-	<HighlightNew value="0"/>
-	<SearchTrack value="0"/>
-	<InvertMetroIcons value="0"/>
-	<MainMenuAnimation value="Fade"/>
-	<SubMenuAnimation value="Fade"/>
-	<SkinW7 value="Metro"/>
-	<SkinVariationW7 value=""/>
-	<SkinOptionsW7>
-		<Line>USER_IMAGE=1</Line>
-		<Line>SMALL_ICONS=1</Line>
-		<Line>LARGE_FONT=0</Line>
-		<Line>DISABLE_MASK=0</Line>
-		<Line>OPAQUE=1</Line>
-		<Line>GLASS_SHADOW=0</Line>
-		<Line>BLACK_TEXT=0</Line>
-		<Line>BLACK_FRAMES=0</Line>
-		<Line>WHITE_SUBMENUS=1</Line>
-	</SkinOptionsW7>
-	<CustomTaskbar value="0"/>
-	<TaskbarLook value="Transparent"/>
-	<SkipMetro value="1"/>
-</Settings>
-"@
 
 $bloatware = @(
     #"Anytime"
@@ -41,7 +11,7 @@ $bloatware = @(
     #"Defender"
     "Feedback"
     "Flash"
-    "Gaming"
+    #"Gaming"	# Breaks Xbox Live Account Login
     #"Holo"
     #"InternetExplorer"
     "Maps"
@@ -55,7 +25,6 @@ $bloatware = @(
 $choco_packs = @(
     "7zip"
     "chocolateygui"
-    "classic-shell"
     "discord"
     "dropbox"
     "git"
@@ -105,10 +74,10 @@ $apps = @(
     "Microsoft.WindowsPhone"
     "Microsoft.WindowsSoundRecorder"
     "Microsoft.WindowsStore"
-    "Microsoft.XboxApp"
-	"Microsoft.XboxGameOverlay"
-    "Microsoft.XboxIdentityProvider"
-    "Microsoft.XboxSpeechToTextOverlay"
+    #"Microsoft.XboxApp"
+    #"Microsoft.XboxGameOverlay"
+    #"Microsoft.XboxIdentityProvider"
+    #"Microsoft.XboxSpeechToTextOverlay"
     "Microsoft.ZuneMusic"
     "Microsoft.ZuneVideo"
         
@@ -324,9 +293,9 @@ Set-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Cloud Content" "Disa
 
 
 # UI fixes ------------------------
-Write-Output "Disable Game DVR and Game Bar"
-force-mkdir "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR"
-Set-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR" "AllowgameDVR" 0
+#Write-Output "Disable Game DVR and Game Bar"
+#force-mkdir "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR"
+#Set-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR" "AllowgameDVR" 0
 
 Write-Output "Disable easy access keyboard stuff"
 Set-ItemProperty "HKCU:\Control Panel\Accessibility\StickyKeys" "Flags" "506"
@@ -475,19 +444,11 @@ foreach ($item in (Get-ChildItem "$env:WinDir\WinSxS\*onedrive*")) {
     Remove-Item -Recurse -Force $item.FullName
 }
 
-
-# Setup Classic Shell ------------------------
-$classic_shell_settings | Out-File -FilePath C:\Program Files\Classic Shell\ps1-generated-import.xml
-C:\Program Files\Classic Shell\ClassicStartMenu.exe -xml ps1-generated-import.xml
-
-
 # MHW Save Directory to Dropbox ------------------------
 cmd /c mklink /D "D:\Steam\userdata\41496749\58210" "C:\Users\Houou\Dropbox\Software\My Games\Monster Hunter World"
 
-
 # As a last step, disable UAC ------------------------
 New-ItemProperty -Path HKLM:Software\Microsoft\Windows\CurrentVersion\policies\system -Name EnableLUA -PropertyType DWord -Value 0 -Force
-
 
 # Restart so UAC changes take effect
 Restart-Computer
