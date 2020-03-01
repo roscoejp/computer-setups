@@ -214,6 +214,9 @@ sudo systemsetup -setcomputersleep Off > /dev/null
 # …and make sure it can’t be rewritten
 #sudo chflags uchg /private/var/vm/sleepimage
 
+# Show battery percentage
+defaults write com.apple.menuextra.battery ShowPercent YES
+
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################
