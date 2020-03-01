@@ -1,4 +1,6 @@
-# Setup Mac
+# Check OS for mac
+
+# macos file
 
 # Install Homeberw and other things
 
