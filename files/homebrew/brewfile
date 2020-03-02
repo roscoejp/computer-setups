@@ -1,7 +1,3 @@
-# Update Homebrew and packages
-update
-upgrade
-
 # Config where apps go
 cask_args appdir: '/Applications'
 
