@@ -16,7 +16,7 @@ if test "$(uname)" = "Darwin"; then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     fi
 elif test "$(expr substr $(uname -s) 1 5)" = "Linux"; then
-    if test ! $(which brew); then
+    if if [[ $(command -v brew) == "" ]]; then
         echo "Installing Homebrew"
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
     fi
