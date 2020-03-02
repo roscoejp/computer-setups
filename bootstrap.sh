@@ -24,7 +24,7 @@ fi
 
 # Brewfile install
 echo "Installing Brewfile-bundle"
-brew bundle --file ./homebrew/brewfile
+brew bundle --file ./files/homebrew/brewfile
 
 # Run Configurators
 echo "Running Configs"
