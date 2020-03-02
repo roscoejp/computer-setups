@@ -32,11 +32,11 @@ I was directed to a great [macOS Setup Guide](http://sourabhbajaj.com/mac-setup/
 - I also cannot claim much originality when it comes to figuring out MAC terminal commands for common UI changes, so credit to [Mathias' excellent MAC setup script](https://github.com/mathiasbynens/dotfiles/blob/master/.macos) which I have modded for my own use.
 
 ## High Level
-- Things that can be configured = topics
-- Things that can be installed via homebrew and don't have configs = brewfile
-- Things that can't be homebrewed = topic/install.sh
-- All installs should check if apps are already installed (should be idempotent)
-- Put stuff into the brewfile first to see if it configs using dotfiles. If it does move it into a topic.
+- Things that need dotfiles = topics
+- Things that can be installed via homebrew and don't have dotfiles = brewfile
+- Things that can't be homebrewed = installers/app.sh
+- All installs should be idempotent
+- Put stuff into the brewfile first to see if it configs using dotfiles. If it does move it into a topic
 
 ## Logrotate bash history but keep last N lines
 TLDR: https://kowalcj0.github.io/posts/2019/logrotate-bash-history/

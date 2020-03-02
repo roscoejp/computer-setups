@@ -1,59 +1,49 @@
 #!/usr/bin/env bash
+#
+# bootstrap installs things.
 
-# Check for Homebrew
-if test ! $(which brew)
-then
-    echo "  Installing Homebrew."
+set -e
+echo ''
 
-    # Install the correct homebrew for each OS type
-    if test "$(uname)" = "Darwin"
-    then
+# Check distro, install homebrew, xcode
+if test "$(uname)" = "Darwin"; then
+    if test ! $(xcode-select -p); then
+        echo "Installing Xcode"
+        xcode-select --install
+    fi
+    if test ! $(which brew); then
+        echo "Installing Homebrew"
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    elif test "$(expr substr $(uname -s) 1 5)" = "Linux"
-    then
+    fi
+elif test "$(expr substr $(uname -s) 1 5)" = "Linux"; then
+    if test ! $(which brew); then
+        echo "Installing Homebrew"
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
     fi
-
 fi
 
-# Run through installs
-brew bundle
-# @TODO
+# Brewfile install
+echo "Installing Brewfile-bundle"
+brew bundle --file ./homebrew/brewfile
 
-# Kill and restart system apps so most changes take effect
-if test "$(uname)" = "Darwin"
-then
-    echo "Killing system apps modified by macos setup."
-    
-    for app in "Activity Monitor" \
-        "Address Book" \
-        "Calendar" \
-        "cfprefsd" \
-        "Contacts" \
-        "Dock" \
-        "Finder" \
-        "Google Chrome Canary" \
-        "Google Chrome" \
-        "Mail" \
-        "Messages" \
-        "Opera" \
-        "Photos" \
-        "Safari" \
-        "SizeUp" \
-        "Spectacle" \
-        "SystemUIServer" \
-        "Terminal" \
-        "Transmission" \
-        "Tweetbot" \
-        "Twitter" \
-        "iCal"; do
-        killall "${app}" &> /dev/null
-    done
+# Run Configurators
+echo "Running Configs"
+for config in ./configs/*; do
+    echo "  Running \"${config}\""
+    [ -f "$config" ] && [ -x "$config" ] && "$config"
+done
 
-    echo "Done. Note that some of these changes require a logout/restart to take effect."
+# Unstow dotfiles
+function stow() {
+    echo "Symlinking dotfiles"
+    stow dotfiles
+}
 
-elif test "$(expr substr $(uname -s) 1 5)" = "Linux"
-then
-    # @TODO
-    echo "Linux isn't done yet."
+if [ "$1" == "--force" -o "$1" == "-f" ]; then
+    stow
+else
+    read -p "This may overwrite existing files in your home directory. Are you sure? (y/N): " -n 1
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        stow
+    fi
 fi

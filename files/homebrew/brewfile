@@ -1,0 +1,62 @@
+# Update Homebrew and packages
+update
+upgrade
+
+# Config where apps go
+cask_args appdir: '/Applications'
+
+# Install cli commands
+brew 'git'
+brew 'wget'
+brew 'bash-completion'
+brew 'tree'
+brew 'stow'
+#   Docker
+brew 'docker'
+brew 'docker-completion'
+brew 'docker-compose-completion'
+brew 'docker-machine-completion'
+#   Google
+brew 'google-chrome'
+brew 'google-cloud-sdk'
+brew 'google-backup-and-sync'
+#   Utils
+brew 'sensiblesidebuttons'
+brew 'rectangle'
+
+
+# install packages
+tap 'caskroom/homebrew-cask' || true
+
+# Install apps
+#   Need these
+cask 'google-chrome'
+cask 'firefox'
+#   Dev
+cask 'visual-studio-code'
+cask 'ansible'
+cask 'nmap'
+cask 'logrotate'
+#   Python
+cask 'pyenv'
+cask 'pyenv-virtualenv'
+cask 'ipython'
+#   Terraform
+cask 'tfenv'
+cask 'terraform-docs'
+cask 'terragrunt'
+#   Kubernetes
+cask 'kubernetes-cli'
+cask 'kubectx'
+cask 'helm'
+#   Communication Apps
+cask 'slack'
+cask 'microsoft-teams'
+#   Mac Apps
+cask 'iterm2'
+cask 'alfred'
+cask 'rectangle'
+
+
+# Remove outdated versions from the cellar.
+cleanup
