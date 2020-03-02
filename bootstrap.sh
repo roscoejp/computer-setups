@@ -14,9 +14,6 @@ if test "$(uname)" = "Darwin"; then
     if [[ $(command -v brew) == "" ]]; then
         echo "Installing Homebrew"
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    else
-        echo "Updating Homebrew"
-        brew update
     fi
 elif test "$(expr substr $(uname -s) 1 5)" = "Linux"; then
     if if [[ $(command -v brew) == "" ]]; then
@@ -27,7 +24,10 @@ fi
 
 # Brewfile install
 echo "Installing Brewfile-bundle"
+brew update
+brew upgrade
 brew bundle --file ./files/homebrew/brewfile
+brew cleanup
 
 # Run Configurators
 echo "Running Configs"
