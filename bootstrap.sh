@@ -5,6 +5,10 @@
 set -e
 echo ''
 
+# Sudo upfront
+sudo -v
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 # Check distro, install homebrew, xcode
 if test "$(uname)" = "Darwin"; then
     if test ! $(xcode-select -p); then
