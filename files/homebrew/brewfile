@@ -12,23 +12,17 @@ brew 'docker'
 brew 'docker-completion'
 brew 'docker-compose-completion'
 brew 'docker-machine-completion'
-#   Google
-brew 'google-chrome'
-brew 'google-cloud-sdk'
-brew 'google-backup-and-sync'
-#   Utils
-brew 'sensiblesidebuttons'
-brew 'rectangle'
-
 
 # install packages
-tap 'caskroom/homebrew-cask' || true
+tap 'homebrew/cask-cask' || true
 
 # Install apps
-#   Need these
+#   Google
 cask 'google-chrome'
-cask 'firefox'
+cask 'google-cloud-sdk'
+cask 'google-backup-and-sync'
 #   Dev
+cask 'firefox'
 cask 'visual-studio-code'
 cask 'ansible'
 cask 'nmap'
@@ -51,6 +45,7 @@ cask 'microsoft-teams'
 #   Mac Apps
 cask 'iterm2'
 cask 'alfred'
+cask 'sensiblesidebuttons'
 cask 'rectangle'
 
 
