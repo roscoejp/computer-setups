@@ -4,7 +4,7 @@ cask_args appdir: '/Applications'
 # Install cli commands
 brew 'git'
 brew 'wget'
-brew 'bash-completion'
+brew 'bash-completion'  # Symlink conflict with docker-completion
 brew 'tree'
 brew 'stow'
 brew 'ansible'
@@ -15,16 +15,16 @@ brew 'pyenv'
 brew 'pyenv-virtualenv'
 brew 'ipython'
 #   Terraform
-brew 'tfenv'
+brew 'tfenv'            # Symlink conflict (via Terraform) with terragrunt
 brew 'terraform-docs'
-brew 'terragrunt'
+brew 'terragrunt'       # Symlink conflict (via Terraform) with tfenv
 #   Kubernetes
 brew 'kubernetes-cli'
 brew 'kubectx'
 brew 'helm'
 #   Docker
 brew 'docker'
-brew 'docker-completion'
+brew 'docker-completion'  # Symlink conflict with bash-completion
 brew 'docker-compose-completion'
 brew 'docker-machine-completion'
 
