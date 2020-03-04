@@ -1,8 +1,26 @@
-# check if vscode installed
-# check if Darwin
-# unstow settings to $HOME/Library/Application Support/Code/User/settings.json
+#!/usr/bin/env bash
+#
+# Configure vscode
 
-# check if Linux
-# unstow settings to $HOME/.config/Code/User/settings.json
+REQUIREMENTS="../files/vscode/requirements.txt"
+STOW_SRC="../files/"
 
-# install plugins
+# Check distro, config vscode
+if [[ $(command -v code) == "" ]]; then
+    echo "Configuring vscode"
+
+    # Install extensions
+    while read line; do
+        code --install-extension "${line}"
+    done <${REQUIREMENTS}
+
+    # Symlink config
+    if test "$(uname)" = "Darwin"; then
+        STOW_DEST="~/Library/Application Support/Code/User/settings.json"
+    elif test "$(expr substr $(uname -s) 1 5)" = "Linux"; then
+        STOW_DEST="~/.config/Code/User/settings.json"
+    fi
+
+    mkdir -p ${STOW_DEST}
+    stow --dir ${STOW_SRC} --target ${STOW_DEST} vscode
+fi

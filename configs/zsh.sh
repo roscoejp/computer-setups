@@ -1,11 +1,18 @@
-# Check distro
-#   Check if installed
-#       install with brew if not already
+#!/usr/bin/env bash
+#
+# Configure zsh
 
-#   Check if oh-my-zsh is isntalled by checking if ~/.oh-my-zsh exists
-#       install oh-my-zsh
+# Check distro, config zsh
+if test "$(uname)" = "Darwin"; then
+    if [[ $(command -v zsh) == "" ]]; then
+        echo "Configuring zsh"
 
+        # Install oh-my-zsh
+        if [[ -f "~/.oh-my-zsh" ]]; then
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+        fi
 
-# Unstow dotfiles
-# Configure stuff we can't
-# Not sure if the theme can be stowed
+        # Configure stuff we can't
+        # Not sure if the theme can be stowed
+    fi
+fi

@@ -4,7 +4,7 @@ cask_args appdir: '/Applications'
 # Install cli commands
 brew 'git'
 brew 'wget'
-brew 'bash-completion'  # Symlink conflict with docker-completion
+brew 'bash-completion'
 brew 'tree'
 brew 'stow'
 brew 'ansible'
@@ -15,21 +15,16 @@ brew 'pyenv'
 brew 'pyenv-virtualenv'
 brew 'ipython'
 #   Terraform
-brew 'tfenv'            # Symlink conflict (via Terraform) with terragrunt
+#   tfenv and terragrunt have conflicting dependencies: https://github.com/gruntwork-io/terragrunt/issues/580
+brew 'tfenv'
 brew 'terraform-docs'
-brew 'terragrunt'       # Symlink conflict (via Terraform) with tfenv
+brew 'terragrunt', args: ["ignore-dependencies"]
 #   Kubernetes
 brew 'kubernetes-cli'
 brew 'kubectx'
 brew 'helm'
 #   Docker
 brew 'docker'
-brew 'docker-completion'  # Symlink conflict with bash-completion
-brew 'docker-compose-completion'
-brew 'docker-machine-completion'
-
-# install packages
-tap 'homebrew/cask-cask' || true
 
 # Install apps
 #   Google

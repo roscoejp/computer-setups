@@ -1,7 +1,12 @@
 [user]
-    name="Roscoe P."
-    email="rpyell@taos.com"
+name="Roscoe P."
+email="rpyell@taos.com"
+
 [credential]
-    helper="osxkeychain"
+helper="osxkeychain"
+
 [core]
-    excludesfile="~/.gitignore"
+excludesfile="~/.gitignore"
+
+[color]
+ui="always"

@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
+#
+# Setup Mac system preferences
+
+MACOS_PATH="../files/macos/macos.sh"
 
 if test ! "$(uname)" = "Darwin"; then
-  exit 0
+  echo "Configuring macos"
+
+  # Check for and run setup
+  [ -f "${MACOS_PATH}" ] && [ -x "${MACOS_PATH}" ] && "${MACOS_PATH}"
+
+  # Update Mac controlled software
+  echo "› sudo softwareupdate -i -a"
+  sudo softwareupdate -i -a
 fi
-
-# The Brewfile handles Homebrew-based app and library installs, but there may
-# still be updates and installables in the Mac App Store. There's a nifty
-# command line interface to it that we can use to just install everything, so
-# yeah, let's do that.
-
-echo "› sudo softwareupdate -i -a"
-sudo softwareupdate -i -a
