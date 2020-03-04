@@ -3,8 +3,9 @@
 # bootstrap installs things.
 
 set -e
-echo ''
 
+INSTALLER_DIR="./installers"
+BREWFILE="./files/homebrew/brewfile"
 STOW_SRC="./"
 STOW_DEST="~"
 
@@ -17,14 +18,13 @@ while true; do
 done 2>/dev/null &
 
 # Check distro, install homebrew
-if test "$(uname)" = "Darwin"; then
-    if [[ $(command -v brew) == "" ]]; then
-        echo "Installing Homebrew"
+if [[ $(command -v brew) == "" ]]; then
+    echo "Installing Homebrew"
+
+    if test "$(uname)" = "Darwin"; then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    fi
-elif test "$(expr substr $(uname -s) 1 5)" = "Linux"; then
-    if [[ $(command -v brew) == "" ]]; then
-        echo "Installing Homebrew"
+
+    elif test "$(expr substr $(uname -s) 1 5)" = "Linux"; then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
     fi
 fi
@@ -33,12 +33,12 @@ fi
 echo "Installing Brewfile-bundle"
 brew update
 brew upgrade
-brew bundle --file ./files/homebrew/brewfile
+brew bundle --file ${BREWFILE}
 brew cleanup
 
-# Run Configurators
-echo "Running Configs"
-for config in ./configs/*; do
+# Run Installers
+echo "Running Installers"
+for config in ${INSTALLER_DIR}/*; do
     echo "  Running \"${config}\""
 
     [ -f "${config}" ] && [ -x "${config}" ] && "${config}"
