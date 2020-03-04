@@ -3,7 +3,8 @@
 # Configure vscode
 
 REQUIREMENTS="../files/vscode/requirements.txt"
-STOW_SRC="../files/"
+STOW_SRC="../files/vscode"
+STOW_DEST=""
 
 # Check distro, config vscode
 if [[ $(command -v code) == "" ]]; then
@@ -22,5 +23,5 @@ if [[ $(command -v code) == "" ]]; then
     fi
 
     mkdir -p ${STOW_DEST}
-    stow --dir ${STOW_SRC} --target ${STOW_DEST} vscode
+    stow --dir ${STOW_SRC} --target ${STOW_DEST} dotfiles
 fi
