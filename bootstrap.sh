@@ -38,10 +38,10 @@ brew cleanup
 
 # Run Installers
 echo "Running Installers"
-for config in ${INSTALLER_DIR}/*; do
+for config in ${INSTALLER_DIR}/*.sh; do
     echo "  Running \"${config}\""
 
-    [ -f "${config}" ] && [ -x "${config}" ] && "${config}"
+    bash "$config" -H
 done
 
 # Unstow dotfiles

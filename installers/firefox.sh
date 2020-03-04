@@ -13,5 +13,9 @@ if test "$(uname)" = "Darwin"; then
 
         # enable the ability to use userchrome
 
+        #==================
+        # create profile in a dir? Does it get a random ID or what? Can we just select the 'default' profile dir in the normal folder maybe and not have to mess with IDs?
+        firefox -CreateProfile "rpyell ~/.firefox/profiles/"
+        # and then copy userchrome into dir?
     fi
 fi

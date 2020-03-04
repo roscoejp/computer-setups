@@ -8,7 +8,7 @@ if test ! "$(uname)" = "Darwin"; then
   echo "Configuring macos"
 
   # Check for and run setup
-  [ -f "${MACOS_PATH}" ] && [ -x "${MACOS_PATH}" ] && "${MACOS_PATH}"
+  bash "$MACOS_PATH" -H
 
   # Update Mac controlled software
   echo "› sudo softwareupdate -i -a"
