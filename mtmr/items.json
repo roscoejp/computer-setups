@@ -5,105 +5,85 @@
     "align": "left"
   },
   {
-    "type": "mute",
+    "name": "Volume Down / Mute",
+    "type": "shellScriptTitledButton",
     "bordered": true,
     "align": "left",
-    "width": 40
+    "width": 34,
+    "refreshInterval": 1,
+    "source": {
+      "inline": "osascript -e 'output muted of (get volume settings)' | awk -F% '{c = \"\"; if (length($1) <= 4) c = \"\\033[41m\"; printf \"%s%s\\n\", c, \" \"}'"
+    },
+    "action": "appleScript",
+    "actionAppleScript": {
+      "inline": "set muted to output muted of (get volume settings)\rif muted then\r\tset volume without output muted\relse\r\tset volume with output muted\rend if"
+    },
+    "image": {
+      "base64": "iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAzFBMVEUAAADs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PFgrzeOAAAAQ3RSTlMAAQIDBAUGBwgKDRMVFhcaICEjJio4Pj9AQURFR0tOT1BUWFtpbHN5e4OVm560ubq+wMXK0dPV19zi5ujr7fHz+fv9uDGuNwAAAPtJREFUSMft09lSwjAYhuFPEOqKuIBBEeu+71p3sH3v/548CGCqtZMcMsN7lvzPSSaJNG1Cqz/CSpBmM0hjgrQvH2pPPtJ+fKwtr3VGg95MqcZIqj3Qs4MzznOw2TbGmB+NkXQJbEvSKXDg6CN+ZyTVE6AtHQNXFYe/FXLNvQCtQ+Da1aKYa/7Vru6q8uFaeAe4n5Uf1wlAR558H4BsI8/Tf/gekPQhW8/xm2K+CzxFS31I11y+eJsV8B0giaTlAaSrfx9BnOddq6XGgK+myryRpO5zZPcbn0Xa8fao47usSKXe9/PFYXzovbn1/lwx0PLn2vq4qAbwaRPeN9nPY/LyDZJ2AAAAAElFTkSuQmCC"
+    }
   },
   {
     "type": "volumeDown",
     "bordered": true,
     "align": "left",
-    "width": 40
+    "width": 34
   },
   {
     "type": "volumeUp",
     "bordered": true,
     "align": "left",
-    "width": 40
+    "width": 34
   },
   {
     "name": "Mute Mic",
     "type": "shellScriptTitledButton",
+    "bordered": true,
+    "align": "left",
+    "width": 34,
+    "refreshInterval": 1,
     "source": {
-      "inline": "osascript -e 'input volume of (get volume settings)' | awk -F% '{c = \"\"; if ($1 > 0) c = \"\\033[41m\"; printf \"%s%s\\n\", c, \" \"}'"
+      "inline": "osascript -e 'input volume of (get volume settings)' | awk -F% '{c = \"\"; if ($1 < 3) c = \"\\033[41m\"; printf \"%s%s\\n\", c, \" \"}'"
     },
     "action": "appleScript",
     "actionAppleScript": {
-      "inline": "if input volume of (get volume settings) > 0 then\r\tset volume input volume 0\relse\r\tset volume input volume 100\rend if"
+      "inline": "if input volume of (get volume settings) > 0 then\r\tset volume input volume 0\r\tset comment to \"Microphone Muted\"\relse\r\tset volume input volume 100\r\tset comment to \"Microphone Unmuted\"\rend if\rdisplay notification comment\rdelay 1"
     },
-    "refreshInterval": 1,
-    "align": "left",
-    "width": 30,
-    "bordered": true,
     "image": {
       "base64": "iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAMAAACf4xmcAAABDlBMVEUAAADs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHv841zAAAAWXRSTlMAAQIDBAUGBwgJChARFRYXGB0fICEjJCkqLi8xODk7PkBCQ0RHS09UVVdcX2FiY2Zrc3R3foKDhoiVl5iam52eqK2yub7Dx8jO0dfZ2tzi5uvt7/H19/n7/fp9C8IAAAEaSURBVDhP1dDHVsJgFEXhgwgKAipYEAuI2As2rNiwIIIdQ/b7v4gDRbKS/DBU9+yu9U3Olf5AweWb90ZpuIeKPwNAsauKvvHdajdWbivsqFmF6LRkZiMOdmRmKQc7M7MxBzv/f6xwEnSz/tOCh7VIu1kGy8Ngys2mwZe53uvHnsgq4WAlKc+jh12zpaDdYQvSNhUPK1KT9n9UMyTVWfOwUUgq1GizWWkcEh6mW6oBRe4AaGWlvnsuvUopOJaUOaxcrAxKgTLWkA/TJlyF28dABWb8lLQHH+sxSYptWJDzV9KiBdj1ug08JE1Kiu40v4ZW8wGzkhSIH/AyEelqJEk5Gr2IJM33YvFXHO2a2JxTUTMxpdKdJsP67T4BQh14ckwVARoAAAAASUVORK5CYII="
     }
   },
   {
     "type": "brightnessDown",
-    "bordered": false,
+    "bordered": true,
     "align": "left",
-    "width": 25
-  },
-  {
-    "type": "brightness",
-    "width": 80,
-    "align": "left",
-    "image": {
-      "base64": "iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAMAAADW3miqAAAAclBMVEUAAAD3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzj3yzhvb8rVAAAAJXRSTlMAAQcICQoLERYXHjc4PFFSVFhZfn+OkZKVl6qrra+1t8rp9/n9wOoEtgAAAPtJREFUOMu1lNd6wjAMRkUWWSWEskfwyHn/V+wFBezUlJR+6FI6nzV+ySJvs1yp/CmkQD2FAP4DRZt9PkxXHNaRB23Bln7hpYW1B50Ak7ie1AAHDyosULmeGrCFX1RpsJlI3HRad7NYJLOYclh6WmcibQ8AfSuS1WmwxxU3Wz0aUXuJT6ZLoA0z8XcuEfmAPg5CDTdIljAb6A4qF+kcaArdPXIRApSIdqAJ6HtkLHR99PxbuqvNHegTmtdHIIsRwxwhS1KlIgtX4CoZMqXBpiLx/Kx114RX5cHS+e0fw+u796Bd+BA2/kntjsWPkzptozdd8B8/jFFfz8v2BTCiLKbBlS79AAAAAElFTkSuQmCC"
-    }
+    "width": 34
   },
   {
     "type": "brightnessUp",
-    "bordered": false,
+    "bordered": true,
     "align": "left",
-    "width": 25
+    "width": 34
   },
   {
-    "name": "Space",
-    "type": "staticButton",
-    "title": "",
-    "width": 80,
-    "bordered": false,
-    "align": "left"
+    "type": "dock",
+    "filter": "(^Xcode$)|(Teams)|(Slack)|(Outlook)",
+    "autoResize": true,
+    "align": "left",
+    "width": 120
   },
   {
     "type": "timeButton",
-    "formatTemplate": "h:mm a",
-    "align": "left",
-    "width": 70,
+    "formatTemplate": "E, MMM d, h:mm a",
+    "align": "center",
+    "width": 175,
     "bordered": false,
     "action": "shellScript",
     "executablePath": "/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine"
   },
   {
-    "name": "YouTube",
-    "title": "",
-    "type": "staticButton",
-    "action": "appleScript",
-    "actionAppleScript": {
-      "inline": "tell application \"Youtube\" to activate"
-    },
-    "image": {
-      "base64": "iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAMAAACf4xmcAAAA4VBMVEUAAADnTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDznTDyXrzdLAAAASnRSTlMAAQIDBAUGBwsNDhAVFhcdHiIjJiwvMDM5OjxCREpOUVVWWFldXmJmaGlxd4CChoiSlZigpqirsLe6wMXIzM7X2dre4OLm6fH7/de2R6YAAADZSURBVDiN7dNFDsMwEAXQCZUZ0pSZmZlTiO9/oK4mcazEqtRt//L7SQaNAf7hRBBlRfF4FFkSRcFhPdJfn56EyftxXHX9lMqzwoqRNJXXcGfkae6e4yhCYshGXFZHtuGyITKdKtUxyxbI6DIAwZmd7Z0ZQHhJN1d8e5YBxKjj6u4MhMU3LHuzmrsby5zp5uJ8hdTJftMjshdVVvaEyRbZgV2xZYpszmU9ZE0uyyKLcpnPnMsdR02sIZfcJ25g+zpyKKFq+WK51mi1O512q1EtFbR0PCTDPz/kA+9Tq2ki5y0zAAAAAElFTkSuQmCC"
-    },
-    "align": "right",
-    "width": 40,
-    "bordered": false
-  },
-  {
-    "name": "Space",
-    "type": "staticButton",
-    "title": "",
-    "width": 30,
-    "bordered": false,
-    "align": "right"
-  },
-  {
     "type": "battery",
     "align": "right",
-    "width": 70,
+    "width": 120,
     "bordered": false
   },
   {
@@ -149,7 +129,7 @@
   {
     "type": "delete",
     "title": "Del",
-    "width": 60,
+    "width": 72,
     "align": "right"
   }
 ]
