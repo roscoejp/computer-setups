@@ -5,6 +5,13 @@
     "align": "left"
   },
   {
+    "type": "staticButton",
+    "width": 0,
+    "bordered": false,
+    "align": "left",
+    "title": ""
+  },
+  {
     "name": "Volume Down / Mute",
     "type": "shellScriptTitledButton",
     "bordered": true,
@@ -23,6 +30,31 @@
     }
   },
   {
+    "name": "Mute Mic",
+    "type": "shellScriptTitledButton",
+    "bordered": true,
+    "align": "left",
+    "width": 34,
+    "refreshInterval": 1,
+    "source": {
+      "inline": "osascript -e 'input volume of (get volume settings)' | awk -F% '{c = \"\"; if ($1 < 3) c = \"\\033[41m\"; printf \"%s%s\\n\", c, \" \"}'"
+    },
+    "action": "appleScript",
+    "actionAppleScript": {
+      "inline": "if input volume of (get volume settings) > 0 then\r\tset volume input volume 0\relse\r\tset volume input volume 100\rend if"
+    },
+    "image": {
+      "base64": "iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAMAAACf4xmcAAABDlBMVEUAAADs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHv841zAAAAWXRSTlMAAQIDBAUGBwgJChARFRYXGB0fICEjJCkqLi8xODk7PkBCQ0RHS09UVVdcX2FiY2Zrc3R3foKDhoiVl5iam52eqK2yub7Dx8jO0dfZ2tzi5uvt7/H19/n7/fp9C8IAAAEaSURBVDhP1dDHVsJgFEXhgwgKAipYEAuI2As2rNiwIIIdQ/b7v4gDRbKS/DBU9+yu9U3Olf5AweWb90ZpuIeKPwNAsauKvvHdajdWbivsqFmF6LRkZiMOdmRmKQc7M7MxBzv/f6xwEnSz/tOCh7VIu1kGy8Ngys2mwZe53uvHnsgq4WAlKc+jh12zpaDdYQvSNhUPK1KT9n9UMyTVWfOwUUgq1GizWWkcEh6mW6oBRe4AaGWlvnsuvUopOJaUOaxcrAxKgTLWkA/TJlyF28dABWb8lLQHH+sxSYptWJDzV9KiBdj1ug08JE1Kiu40v4ZW8wGzkhSIH/AyEelqJEk5Gr2IJM33YvFXHO2a2JxTUTMxpdKdJsP67T4BQh14ckwVARoAAAAASUVORK5CYII="
+    }
+  },
+  {
+    "type": "staticButton",
+    "width": 0,
+    "bordered": false,
+    "align": "left",
+    "title": ""
+  },
+  {
     "type": "volumeDown",
     "bordered": true,
     "align": "left",
@@ -35,22 +67,11 @@
     "width": 34
   },
   {
-    "name": "Mute Mic",
-    "type": "shellScriptTitledButton",
-    "bordered": true,
+    "type": "staticButton",
+    "width": 0,
+    "bordered": false,
     "align": "left",
-    "width": 34,
-    "refreshInterval": 1,
-    "source": {
-      "inline": "osascript -e 'input volume of (get volume settings)' | awk -F% '{c = \"\"; if ($1 < 3) c = \"\\033[41m\"; printf \"%s%s\\n\", c, \" \"}'"
-    },
-    "action": "appleScript",
-    "actionAppleScript": {
-      "inline": "if input volume of (get volume settings) > 0 then\r\tset volume input volume 0\r\tset comment to \"Microphone Muted\"\relse\r\tset volume input volume 100\r\tset comment to \"Microphone Unmuted\"\rend if\rdisplay notification comment\rdelay 1"
-    },
-    "image": {
-      "base64": "iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAMAAACf4xmcAAABDlBMVEUAAADs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHv841zAAAAWXRSTlMAAQIDBAUGBwgJChARFRYXGB0fICEjJCkqLi8xODk7PkBCQ0RHS09UVVdcX2FiY2Zrc3R3foKDhoiVl5iam52eqK2yub7Dx8jO0dfZ2tzi5uvt7/H19/n7/fp9C8IAAAEaSURBVDhP1dDHVsJgFEXhgwgKAipYEAuI2As2rNiwIIIdQ/b7v4gDRbKS/DBU9+yu9U3Olf5AweWb90ZpuIeKPwNAsauKvvHdajdWbivsqFmF6LRkZiMOdmRmKQc7M7MxBzv/f6xwEnSz/tOCh7VIu1kGy8Ngys2mwZe53uvHnsgq4WAlKc+jh12zpaDdYQvSNhUPK1KT9n9UMyTVWfOwUUgq1GizWWkcEh6mW6oBRe4AaGWlvnsuvUopOJaUOaxcrAxKgTLWkA/TJlyF28dABWb8lLQHH+sxSYptWJDzV9KiBdj1ug08JE1Kiu40v4ZW8wGzkhSIH/AyEelqJEk5Gr2IJM33YvFXHO2a2JxTUTMxpdKdJsP67T4BQh14ckwVARoAAAAASUVORK5CYII="
-    }
+    "title": ""
   },
   {
     "type": "brightnessDown",
@@ -63,13 +84,6 @@
     "bordered": true,
     "align": "left",
     "width": 34
-  },
-  {
-    "type": "dock",
-    "filter": "(^Xcode$)|(Teams)|(Slack)|(Outlook)",
-    "autoResize": true,
-    "align": "left",
-    "width": 120
   },
   {
     "type": "timeButton",
@@ -104,6 +118,13 @@
   },
   {
     "type": "staticButton",
+    "width": 0,
+    "bordered": false,
+    "align": "right",
+    "title": ""
+  },
+  {
+    "type": "staticButton",
     "title": "Home",
     "action": "keyPress",
     "keycode": 115,
@@ -125,6 +146,13 @@
     },
     "width": 50,
     "align": "right"
+  },
+  {
+    "type": "staticButton",
+    "width": 0,
+    "bordered": false,
+    "align": "right",
+    "title": ""
   },
   {
     "type": "delete",
