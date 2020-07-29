@@ -444,9 +444,6 @@ foreach ($item in (Get-ChildItem "$env:WinDir\WinSxS\*onedrive*")) {
     Remove-Item -Recurse -Force $item.FullName
 }
 
-# MHW Save Directory to Dropbox ------------------------
-cmd /c mklink /D "D:\Steam\userdata\41496749\58210" "C:\Users\Houou\Dropbox\Software\My Games\Monster Hunter World"
-
 # As a last step, disable UAC ------------------------
 New-ItemProperty -Path HKLM:Software\Microsoft\Windows\CurrentVersion\policies\system -Name EnableLUA -PropertyType DWord -Value 0 -Force
 
