@@ -24,12 +24,13 @@ $bloatware = @(
 
 $choco_packs = @(
     "7zip"
+    "autohotkey.portable"
     "chocolateygui"
     "discord"
-    "dropbox"
     "git"
+    "goggalaxy"
     "GoogleChrome"
-    "googledrive"
+    "google-backup-and-sync"
     "imdisk"
     "intel-xtu"
     "openhardwaremonitor"
@@ -38,8 +39,14 @@ $choco_packs = @(
     "python"
     "python3"
     "qbittorrent"
+    "speedfan"
+    "steam"
+    "steelseries-engine"
+    "virtualbox"
     "vlc"
     "vscode"
+    "windirstat"
+    "yumi-uefi"
 )
 
 $apps = @(
