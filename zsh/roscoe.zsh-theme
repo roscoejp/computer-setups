@@ -12,7 +12,7 @@ fi
 
 local host='%{$terminfo[bold]$fg[green]%}%m%{$reset_color%}'
 
-local current_dir='%{$terminfo[bold]$fg[yellow]%}%~%{$reset_color%}'
+local current_dir='%{$terminfo[bold]$fg[yellow]%}%30<...<%~%<< $reset_color%}'
 local rvm_ruby=''
 if which rvm-prompt &> /dev/null; then
   rvm_ruby='%{$fg[red]%}‹$(rvm-prompt i v g)›%{$reset_color%}'
